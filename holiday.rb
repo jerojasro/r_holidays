@@ -23,3 +23,27 @@ module Easter
   end
 end
 
+module Holiday
+
+  class Holiday
+  end
+
+  class FixedHoliday < Holiday
+
+    def initialize(year, month, day)
+      @date = Date.new(year, month, day)
+    end
+
+  end
+
+  class NextMondayHoliday < Holiday
+
+    attr_reader :date
+
+    def initialize(year, month, day)
+      d = Date.new(year, month, day)
+      @date = d + ((8 - d.wday) % 7)
+    end
+  end
+end
+

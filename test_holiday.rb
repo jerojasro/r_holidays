@@ -14,3 +14,11 @@ class TestEasterDate < Test::Unit::TestCase
     assert_equal(Date.new(2012, 4, 8), Easter.easter_date(2012))
   end
 end
+
+class TestHoliday < Test::Unit::TestCase
+  def test_next_monday_holiday
+    assert_equal(Date.new(2013, 1, 7), Holiday::NextMondayHoliday.new(2013, 1, 6).date)
+    assert_equal(Date.new(2013, 7, 1), Holiday::NextMondayHoliday.new(2013, 6, 29).date)
+    assert_equal(Date.new(2013, 11, 11), Holiday::NextMondayHoliday.new(2013, 11, 11).date)
+  end
+end
