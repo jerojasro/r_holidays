@@ -33,8 +33,13 @@ module Holiday
 
   class FixedHoliday < Holiday
 
-    def initialize(year, month, day)
-      @date = Date.new(year, month, day)
+    def initialize(month, day)
+      @month = month
+      @day = day
+    end
+
+    def date(year)
+      Date.new(year, @month, @day)
     end
 
   end
@@ -42,16 +47,25 @@ module Holiday
   class NextMondayHoliday < Holiday
 
 
-    def initialize(year, month, day)
-      d = Date.new(year, month, day)
-      @date = d + ((8 - d.wday) % 7)
+    def initialize(month, day)
+      @month = month
+      @day = day
+    end
+
+    def date(year)
+      d = Date.new(year, @month, @day)
+      d + ((8 - d.wday) % 7)
     end
   end
 
   class EasterOffsetHoliday < Holiday
-    def initialize(year, offset)
-      easter = Easter.easter_date(year)
-      @date = easter + offset
+    def initialize(offset)
+      @offset = offset
+    end
+
+    def date(year)
+      easter_d = Easter.easter_date(year)
+      easter_d + @offset
     end
   end
 end
