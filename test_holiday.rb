@@ -21,4 +21,10 @@ class TestHoliday < Test::Unit::TestCase
     assert_equal(Date.new(2013, 7, 1), Holiday::NextMondayHoliday.new(2013, 6, 29).date)
     assert_equal(Date.new(2013, 11, 11), Holiday::NextMondayHoliday.new(2013, 11, 11).date)
   end
+
+  def test_easteroffset_holiday
+    assert_equal(Date.new(2013, 3, 28), Holiday::EasterOffsetHoliday.new(2013, -3).date)
+    assert_equal(Date.new(2013, 6, 3), Holiday::EasterOffsetHoliday.new(2013, 64).date)
+    assert_equal(Date.new(2013, 5, 13), Holiday::EasterOffsetHoliday.new(2013, 43).date)
+  end
 end

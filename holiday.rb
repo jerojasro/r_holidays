@@ -47,5 +47,12 @@ module Holiday
       @date = d + ((8 - d.wday) % 7)
     end
   end
+
+  class EasterOffsetHoliday < Holiday
+    def initialize(year, offset)
+      easter = Easter.easter_date(year)
+      @date = easter + offset
+    end
+  end
 end
 
