@@ -26,14 +26,13 @@ end
 module Holiday
 
   class Holiday
-
-    attr_reader :date
-
+    attr_reader :name
   end
 
   class FixedHoliday < Holiday
 
-    def initialize(month, day)
+    def initialize(name, month, day)
+      @name = name
       @month = month
       @day = day
     end
@@ -47,7 +46,8 @@ module Holiday
   class NextMondayHoliday < Holiday
 
 
-    def initialize(month, day)
+    def initialize(name, month, day)
+      @name = name
       @month = month
       @day = day
     end
@@ -59,7 +59,8 @@ module Holiday
   end
 
   class EasterOffsetHoliday < Holiday
-    def initialize(offset)
+    def initialize(name, offset)
+      @name = name
       @offset = offset
     end
 
