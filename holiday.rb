@@ -26,6 +26,9 @@ end
 module Holiday
 
   class Holiday
+
+    attr_reader :date
+
   end
 
   class FixedHoliday < Holiday
@@ -38,7 +41,6 @@ module Holiday
 
   class NextMondayHoliday < Holiday
 
-    attr_reader :date
 
     def initialize(year, month, day)
       d = Date.new(year, month, day)
