@@ -30,29 +30,30 @@ class TestHoliday < Test::Unit::TestCase
 end
 
 class TestHolidaysInPeriod < Test::Unit::TestCase
+  @@hs = [
+    Holiday::FixedHoliday.new("Anyo Nuevo", 1, 1),
+    Holiday::FixedHoliday.new("Dia del trabajo", 5, 1),
+    Holiday::FixedHoliday.new("Grito de Independencia", 7, 20),
+    Holiday::FixedHoliday.new("Batalla de Boyaca", 8, 7),
+    Holiday::FixedHoliday.new("Inmaculada Concepcion", 12, 8),
+    Holiday::FixedHoliday.new("Navidad", 12, 25),
+    Holiday::NextMondayHoliday.new("Fiesta de Reyes", 1, 6),
+    Holiday::NextMondayHoliday.new("San Jose", 3, 19),
+    Holiday::NextMondayHoliday.new("San Pedro y San Pablo", 6, 29),
+    Holiday::NextMondayHoliday.new("Asuncion de la Virgen", 8, 15),
+    Holiday::NextMondayHoliday.new("Dia de la Raza", 10, 12),
+    Holiday::NextMondayHoliday.new("Todos los Santos", 11, 1),
+    Holiday::NextMondayHoliday.new("Independencia de Cartagena", 11, 11),
+    Holiday::EasterOffsetHoliday.new("Domingo de Ramos", -7),
+    Holiday::EasterOffsetHoliday.new("Jueves Santo", -3),
+    Holiday::EasterOffsetHoliday.new("Viernes Santo", -2),
+    Holiday::EasterOffsetHoliday.new("Ascencion de Jesus", 43),
+    Holiday::EasterOffsetHoliday.new("Corpus Christi", 64),
+    Holiday::EasterOffsetHoliday.new("Sagrado Corazon", 71),
+       ]
+
   def test_holidays_in_period
-    hs = [
-      Holiday::FixedHoliday.new("Anyo Nuevo", 1, 1),
-      Holiday::FixedHoliday.new("Dia del trabajo", 5, 1),
-      Holiday::FixedHoliday.new("Grito de Independencia", 7, 20),
-      Holiday::FixedHoliday.new("Batalla de Boyaca", 8, 7),
-      Holiday::FixedHoliday.new("Inmaculada Concepcion", 12, 8),
-      Holiday::FixedHoliday.new("Navidad", 12, 25),
-      Holiday::NextMondayHoliday.new("Fiesta de Reyes", 1, 6),
-      Holiday::NextMondayHoliday.new("San Jose", 3, 19),
-      Holiday::NextMondayHoliday.new("San Pedro y San Pablo", 6, 29),
-      Holiday::NextMondayHoliday.new("Asuncion de la Virgen", 8, 15),
-      Holiday::NextMondayHoliday.new("Dia de la Raza", 10, 12),
-      Holiday::NextMondayHoliday.new("Todos los Santos", 11, 1),
-      Holiday::NextMondayHoliday.new("Independencia de Cartagena", 11, 11),
-      Holiday::EasterOffsetHoliday.new("Domingo de Ramos", -7),
-      Holiday::EasterOffsetHoliday.new("Jueves Santo", -3),
-      Holiday::EasterOffsetHoliday.new("Viernes Santo", -2),
-      Holiday::EasterOffsetHoliday.new("Ascencion de Jesus", 43),
-      Holiday::EasterOffsetHoliday.new("Corpus Christi", 64),
-      Holiday::EasterOffsetHoliday.new("Sagrado Corazon", 71),
-         ]
-    assert_equal(Holiday::holidays_in_period(Date.new(2013, 1, 1), Date.new(2013, 12, 31), hs).map{|hr| hr.date},
+    assert_equal(Holiday::holidays_in_period(Date.new(2013, 1, 1), Date.new(2013, 12, 31), @@hs).map{|hr| hr.date},
                  [
                    Date.new(2013, 1, 1),
                    Date.new(2013, 1, 7),
