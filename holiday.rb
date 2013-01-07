@@ -29,7 +29,16 @@ module Holiday
     attr_reader :name
   end
 
+  module MDHoliday
+    def ==(other)
+      other.month == self.month and other.day == self.day and other.name == self.name
+    end
+  end
+
   class FixedHoliday < HolidaySpec
+    include MDHoliday
+
+    attr_reader :month, :day
 
     def initialize(name, month, day)
       @name = name
@@ -41,10 +50,21 @@ module Holiday
       Date.new(year, @month, @day)
     end
 
+    def self.parse(tokens)
+
+      # TODO check for valid month and month day numbers
+
+      raise HolidayParseError.new("Incorrect amount of parameters: #{tokens}.  Expecting name, month number and day number") if tokens.size != 3
+      name, month_s, day_s = tokens
+      self.new(name, month_s.to_i, day_s.to_i)
+    end
+
   end
 
   class NextMondayHoliday < HolidaySpec
+    include MDHoliday
 
+    attr_reader :month, :day
 
     def initialize(name, month, day)
       @name = name
@@ -56,9 +76,22 @@ module Holiday
       d = Date.new(year, @month, @day)
       d + ((8 - d.wday) % 7)
     end
+
+    def self.parse(tokens)
+
+      # TODO check for valid month and month day numbers
+
+      raise HolidayParseError.new("Incorrect amount of parameters: #{tokens}.  Expecting name, month number and day number") if tokens.size != 3
+      name, month_s, day_s = tokens
+      self.new(name, month_s.to_i, day_s.to_i)
+    end
+
   end
 
   class EasterOffsetHoliday < HolidaySpec
+
+    attr_reader :offset
+
     def initialize(name, offset)
       @name = name
       @offset = offset
@@ -67,6 +100,16 @@ module Holiday
     def date(year)
       easter_d = Easter.easter_date(year)
       easter_d + @offset
+    end
+
+    def self.parse(tokens)
+      raise HolidayParseError.new("Incorrect amount of parameters: #{tokens}.  Expecting name and easter offset") if tokens.size != 2
+      name, offset_s = tokens
+      self.new(name, offset_s.to_i)
+    end
+
+    def ==(other)
+      self.name == other.name and self.offset == other.offset
     end
   end
 
@@ -96,6 +139,26 @@ module Holiday
     hds.select do |hd|
       hd.date >= ini and hd.date <= end_
     end.sort
+  end
+
+  class HolidayParseError < StandardError
+  end
+
+  def self.parse_holiday_spec(str)
+    tokens = str.split(",").map{|s| s.strip}
+    raise holidayParseError.new("Improper amount of elements") if tokens.size < 1
+    ht = tokens[0]
+    tokens.shift
+    case ht
+    when "FixedHoliday"
+      FixedHoliday.parse(tokens)
+    when "NextMondayHoliday"
+      NextMondayHoliday.parse(tokens)
+    when "EasterOffsetHoliday"
+      EasterOffsetHoliday.parse(tokens)
+    else
+      raise HolidayParseError.new("Invalid holiday type: #{ht}")
+    end
   end
 end
 

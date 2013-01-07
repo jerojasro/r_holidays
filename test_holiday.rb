@@ -97,3 +97,17 @@ class TestHolidaysInPeriod < Test::Unit::TestCase
                 )
   end
 end
+
+class TestHolidayParsing < Test::Unit::TestCase
+  def test_parsing_fixed
+    assert_equal(Holiday::FixedHoliday.new("Anyo Nuevo", 1, 1), Holiday.parse_holiday_spec("FixedHoliday, Anyo Nuevo, 1, 1"))
+  end
+
+  def test_parsing_nextmonday
+    assert_equal(Holiday::NextMondayHoliday.new("Fiesta de Reyes", 1, 6), Holiday.parse_holiday_spec("NextMondayHoliday, Fiesta de Reyes, 1, 6"))
+  end
+
+  def test_parsing_easteroffset
+    assert_equal(Holiday::EasterOffsetHoliday.new("Jueves Santo", -3), Holiday.parse_holiday_spec("EasterOffsetHoliday, Jueves Santo, -3"))
+  end
+end
