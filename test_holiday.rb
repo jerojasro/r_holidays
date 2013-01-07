@@ -77,4 +77,23 @@ class TestHolidaysInPeriod < Test::Unit::TestCase
                  ]
                 )
   end
+
+  def test_holidays_in_period2
+    assert_equal(Holiday::holidays_in_period(Date.new(2013, 1, 7), Date.new(2013, 8, 18), @@hs).map{|hr| hr.date},
+                 [
+                   Date.new(2013, 1, 7),
+                   Date.new(2013, 3, 24),
+                   Date.new(2013, 3, 25),
+                   Date.new(2013, 3, 28),
+                   Date.new(2013, 3, 29),
+                   Date.new(2013, 5, 1),
+                   Date.new(2013, 5, 13),
+                   Date.new(2013, 6, 3),
+                   Date.new(2013, 6, 10),
+                   Date.new(2013, 7, 1),
+                   Date.new(2013, 7, 20),
+                   Date.new(2013, 8, 7),
+                 ]
+                )
+  end
 end
