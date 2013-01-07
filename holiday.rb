@@ -25,11 +25,11 @@ end
 
 module Holiday
 
-  class Holiday
+  class HolidaySpec
     attr_reader :name
   end
 
-  class FixedHoliday < Holiday
+  class FixedHoliday < HolidaySpec
 
     def initialize(name, month, day)
       @name = name
@@ -43,7 +43,7 @@ module Holiday
 
   end
 
-  class NextMondayHoliday < Holiday
+  class NextMondayHoliday < HolidaySpec
 
 
     def initialize(name, month, day)
@@ -58,7 +58,7 @@ module Holiday
     end
   end
 
-  class EasterOffsetHoliday < Holiday
+  class EasterOffsetHoliday < HolidaySpec
     def initialize(name, offset)
       @name = name
       @offset = offset
