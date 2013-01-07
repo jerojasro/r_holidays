@@ -69,5 +69,33 @@ module Holiday
       easter_d + @offset
     end
   end
+
+  class Holiday
+    include Comparable
+    attr_reader :date, :name
+    def initialize(date, name)
+      @date = date
+      @name = name
+    end
+
+    def <=>(other)
+      return @date.<=>(other.date)
+    end
+
+  end
+
+  def self.holidays_in_period(ini, end_, hs)
+    ini_year = [ini.year, end_.year].min
+    end_year = [ini.year, end_.year].max
+    hds = []
+    (ini_year..end_year).each do |y|
+      hs.each do |h|
+        hds << Holiday.new(h.date(y), h.name)
+      end
+    end
+    hds.select do |hd|
+      hd.date >= ini and hd.date <= end_
+    end.sort
+  end
 end
 
