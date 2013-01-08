@@ -1,0 +1,19 @@
+FixedHoliday,Anyo Nuevo, 1, 1
+FixedHoliday,Dia del Trabajo, 5, 1
+FixedHoliday,Grito de Independencia, 7, 20
+FixedHoliday,Batalla de Boyaca, 8, 7
+FixedHoliday,Inmaculada Concepcion, 12, 8
+FixedHoliday,Navidad, 12, 25
+NextMondayHoliday,Fiesta de Reyes, 1, 6
+NextMondayHoliday,San Jose, 3, 19
+NextMondayHoliday,San Pedro y San Pablo, 6, 29
+NextMondayHoliday,Asuncion de la Virgen, 8, 15
+NextMondayHoliday,Dia de la Raza, 10, 12
+NextMondayHoliday,Todos los Santos, 11, 1
+NextMondayHoliday,Independencia de Cartagena, 11, 11
+EasterOffsetHoliday,Domingo de Ramos, -7
+EasterOffsetHoliday,Jueves Santo, -3
+EasterOffsetHoliday,Viernes Santo, -2
+EasterOffsetHoliday,Ascencion de Jesus, 43
+EasterOffsetHoliday,Corpus Christi, 64
+EasterOffsetHoliday,Sagrado Corazon, 71
