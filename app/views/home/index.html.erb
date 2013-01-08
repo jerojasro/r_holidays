@@ -1,6 +1,8 @@
 <form method="GET" action="/holidays">
   <select name="country">
-    <option value="co">Colombia</option>
+    <% @countries.each do |k,v| %>
+      <option value="<%= k %>"><%= v %></option>
+    <% end %>
   </select>
   <input name="year"/><br/>
   <input type="submit" value="Submit"/>

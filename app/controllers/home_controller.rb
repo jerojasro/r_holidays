@@ -2,7 +2,12 @@ require 'holiday'
 require 'date'
 
 class HomeController < ApplicationController
+
+  @@countries = Hash["co", "Colombia"]
+
   def index
+    # TODO see how to avoid this sillyness
+    @countries = @@countries
   end
 
   def holidays
