@@ -145,6 +145,7 @@ module Holiday
   end
 
   def self.parse_holiday_spec(str)
+    str.strip!
     tokens = str.split(",").map{|s| s.strip}
     raise holidayParseError.new("Improper amount of elements") if tokens.size < 1
     ht = tokens[0]
@@ -158,6 +159,15 @@ module Holiday
       EasterOffsetHoliday.parse(tokens)
     else
       raise HolidayParseError.new("Invalid holiday type: #{ht}")
+    end
+  end
+
+  def self.holidays_for(country_code)
+    hld_path = File.expand_path(File.dirname(__FILE__) + "/hld_data/#{country_code}.hld")
+    fail "No holiday file: #{hld_path}" if not File.exists?(hld_path)
+    f = File.new(hld_path)
+    f.readlines().map do |s|
+      parse_holiday_spec s
     end
   end
 end
