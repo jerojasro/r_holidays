@@ -1,5 +1,8 @@
 Holidays::Application.routes.draw do
-  get "home/index"
+  #get "home/index"
+
+  root :to => "home#index"
+  match "holidays" => "home#holidays"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
