@@ -121,7 +121,13 @@ class TestHolidayAnalysis < Test::Unit::TestCase
   def test_analysis_weekend
     hrs = Holiday.holidays_in_period(Date.new(2011, 1, 1), Date.new(2011, 12, 31), TestHolidaysInPeriod.hs)
     ar = Holiday.analyze(hrs)
-    assert_equal(ar[:dups].size, 1)
+    assert_equal(ar[:on_weekend], [
+                 Holiday::Holiday.new(Date.new(2011, 1, 1), "Anyo Nuevo"),
+                 Holiday::Holiday.new(Date.new(2011, 4, 17), "Domingo de Ramos"),
+                 Holiday::Holiday.new(Date.new(2011, 5, 1), "Dia del trabajo"),
+                 Holiday::Holiday.new(Date.new(2011, 8, 7), "Batalla de Boyaca"),
+                 Holiday::Holiday.new(Date.new(2011, 12, 25), "Navidad"),
+    ])
   end
 
 end

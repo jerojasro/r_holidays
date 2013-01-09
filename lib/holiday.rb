@@ -189,7 +189,7 @@ module Holiday
   # NOTE: assumes the received list is already sorted according to each holiday's date
   def self.analyze(hs)
     rv = Hash.new
-    rv[:on_weekend] = hs.select{|h| [6, 7].find{|i| i==h.date.wday}} # 6, 7 correspond to ISO weekday numbers for sat, sun
+    rv[:on_weekend] = hs.select{|h| [6, 0].find{|i| i==h.date.wday}} # 6, 0 correspond to ISO weekday numbers for sat, sun
     rv[:dups] = hs.group_by{|n| n}.select{|k,v| v.size > 1}
     dup_excl = rv[:dups].map do |k, v|
       v[1,v-1] # TODO figure out how to do Python's arr[1:]
