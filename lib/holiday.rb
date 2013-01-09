@@ -125,7 +125,11 @@ module Holiday
     end
 
     def <=>(other)
-      return @date.<=>(other.date)
+      rv = @date.<=>(other.date)
+      if rv == 0
+        return @name.<=>(other.name)
+      end
+      return rv
     end
 
     def weekday
@@ -195,6 +199,7 @@ module Holiday
       v[1,v.size-1] # TODO figure out how to do Python's arr[1:]
     end
     excl = rv[:on_weekend] + dup_excl.flatten
+    rv[:excl] = excl
     rv[:effective] = hs.select{|h| not excl.find{|he| he==h }}
     rv
   end

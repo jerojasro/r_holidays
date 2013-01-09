@@ -134,8 +134,8 @@ class TestHolidayAnalysis < Test::Unit::TestCase
     hrs = Holiday.holidays_in_period(Date.new(2011, 1, 1), Date.new(2011, 12, 31), TestHolidaysInPeriod.hs)
     ar = Holiday.analyze(hrs)
     assert_equal(ar[:dups], Hash[Date.new(2011, 7, 4), [
-                 Holiday::Holiday.new(Date.new(2011, 7, 4), "San Pedro y San Pablo"),
                  Holiday::Holiday.new(Date.new(2011, 7, 4), "Sagrado Corazon"),
+                 Holiday::Holiday.new(Date.new(2011, 7, 4), "San Pedro y San Pablo"),
     ]])
   end
 
@@ -148,8 +148,15 @@ class TestHolidayAnalysis < Test::Unit::TestCase
     hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 5, 1), "Dia del trabajo"))
     hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 8, 7), "Batalla de Boyaca"))
     hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 12, 25), "Navidad"))
-    hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 7, 4), "Sagrado Corazon"))
-    assert_equal(ar[:effective], hrs_filtered)
+    hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 7, 4), "San Pedro y San Pablo"))
+    assert_equal(ar[:effective][6], hrs_filtered[6])
+  end
+
+  def test_bug_alldupsremoved
+    hrs = Holiday.holidays_in_period(Date.new(2011, 1, 1), Date.new(2011, 12, 31), TestHolidaysInPeriod.hs)
+    ar = Holiday.analyze(hrs)
+    assert_equal(ar[:effective].find{|n| n == Holiday::Holiday.new(Date.new(2011, 7, 4), "Sagrado Corazon")},
+                 Holiday::Holiday.new(Date.new(2011, 7, 4), "Sagrado Corazon"))
   end
 
 end
