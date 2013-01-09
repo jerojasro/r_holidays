@@ -190,12 +190,12 @@ module Holiday
   def self.analyze(hs)
     rv = Hash.new
     rv[:on_weekend] = hs.select{|h| [6, 0].find{|i| i==h.date.wday}} # 6, 0 correspond to ISO weekday numbers for sat, sun
-    rv[:dups] = hs.group_by{|n| n}.select{|k,v| v.size > 1}
+    rv[:dups] = hs.group_by{|n| n.date}.select{|k,v| v.size > 1}
     dup_excl = rv[:dups].map do |k, v|
-      v[1,v-1] # TODO figure out how to do Python's arr[1:]
+      v[1,v.size-1] # TODO figure out how to do Python's arr[1:]
     end
     excl = rv[:on_weekend] + dup_excl.flatten
-    rv[:effective] = hs.select{|h| not excl.find(h)}
+    rv[:effective] = hs.select{|h| not excl.find{|he| he==h }}
     rv
   end
 end
