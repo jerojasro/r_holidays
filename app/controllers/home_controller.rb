@@ -19,6 +19,8 @@ class HomeController < ApplicationController
     ini = Date.new(year, 1, 1)
     end_ = Date.new(year, 12, 31)
     @hys = Holiday::holidays_in_period(ini, end_, hs)
+    @country = @@countries[params[:country]]
+    @year = year
     render :holidays
   end
 end

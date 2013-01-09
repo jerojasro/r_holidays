@@ -116,6 +116,9 @@ module Holiday
   class Holiday
     include Comparable
     attr_reader :date, :name
+
+    @@wdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
     def initialize(date, name)
       @date = date
       @name = name
@@ -123,6 +126,10 @@ module Holiday
 
     def <=>(other)
       return @date.<=>(other.date)
+    end
+
+    def weekday
+      @@wdays[@date.wday-1]
     end
 
   end

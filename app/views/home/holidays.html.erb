@@ -1,6 +1,16 @@
-<ul>
+<h1>
+Holidays for <%= @country %> in <%= @year %>
+</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Weekday</th>
+  </tr>
 <% @hys.each do |h| %>
-  <li><span><%= h.name %>:</span><%= h.date %></li>
+<tr>
+  <td><%= h.name %></td><td><%= h.date %></td><td><%= h.weekday %></td>
+</tr>
 
 <% end %>
-</ul>
+</table>
