@@ -52,6 +52,10 @@ class TestHolidaysInPeriod < Test::Unit::TestCase
     Holiday::EasterOffsetHoliday.new("Sagrado Corazon", 71),
        ]
 
+  def self.hs
+    @@hs
+  end
+
   def test_holidays_in_period
     assert_equal(Holiday::holidays_in_period(Date.new(2013, 1, 1), Date.new(2013, 12, 31), @@hs).map{|hr| hr.date},
                  [
@@ -110,4 +114,14 @@ class TestHolidayParsing < Test::Unit::TestCase
   def test_parsing_easteroffset
     assert_equal(Holiday::EasterOffsetHoliday.new("Jueves Santo", -3), Holiday.parse_holiday_spec("EasterOffsetHoliday, Jueves Santo, -3"))
   end
+end
+
+class TestHolidayAnalysis < Test::Unit::TestCase
+
+  def test_analysis_weekend
+    hrs = Holiday.holidays_in_period(Date.new(2011, 1, 1), Date.new(2011, 12, 31), TestHolidaysInPeriod.hs)
+    ar = Holiday.analyze(hrs)
+    assert_equal(ar[:dups].size, 1)
+  end
+
 end
