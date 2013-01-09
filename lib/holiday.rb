@@ -117,7 +117,7 @@ module Holiday
     include Comparable
     attr_reader :date, :name
 
-    @@wdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    @@wdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
     def initialize(date, name)
       @date = date
