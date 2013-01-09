@@ -17,3 +17,82 @@ Holidays for <%= @country %> in <%= @year %>
 <p>
 Download this list as a <a href='<%= url_for Hash[:controller , "home", :action , "holidays_csv", :country, @country_code, :year, @year] %>'>CSV file</a>
 </p>
+<h2>
+  Analysis
+</h2>
+<p>
+  There are
+</p>
+<ul>
+  <li>
+    <%= @hys.size %> total holidays.
+  </li>
+  <li>
+    <%= @analysis[:on_weekend].size %> holidays celebrated in a weekend day.
+  </li>
+  <li>
+    <%= @analysis[:dups].size %> duplicated holidays.
+  </li>
+  <li>
+    <%= @analysis[:effective].size %> effective holidays.
+  </li>
+</ul>
+<p>
+  See below for the details.
+</p>
+<% if @analysis[:on_weekend] and @analysis[:on_weekend].size > 0 %>
+<p>
+  The following holidays are celebrated in a weekend:
+</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Weekday</th>
+  </tr>
+<% @analysis[:on_weekend].each do |h| %>
+<tr>
+  <td><%= h.name %></td><td><%= h.date %></td><td><%= h.weekday %></td>
+</tr>
+
+<% end %>
+</table>
+<% end %>
+
+<% if @analysis[:dups] and @analysis[:dups].size > 0 %>
+<p>
+  The following holidays are duplicated:
+</p>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Name</th>
+  </tr>
+<% @analysis[:dups].each do |d,hs| %>
+<tr>
+  <td rowspan="<%= hs.size %>"><%= d %></td>
+  <td><%= hs[0].name %></td>
+</tr>
+  <% hs[1,hs.size-1].each do |h| %>
+    <tr><td><%= h.name %></td></tr>
+  <% end %>
+
+<% end %>
+</table>
+<% end %>
+<p>
+  The following is the list of effective holidays (not duplicated, and not celebrated in a weekend):
+</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Weekday</th>
+  </tr>
+<% @analysis[:effective].each do |h| %>
+<tr>
+  <td><%= h.name %></td><td><%= h.date %></td><td><%= h.weekday %></td>
+</tr>
+
+<% end %>
+</table>

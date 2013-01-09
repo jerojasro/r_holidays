@@ -23,6 +23,7 @@ class HomeController < ApplicationController
     end
     @year = params[:year].to_i
     @hys = self.hfy(params[:country], @year)
+    @analysis = Holiday.analyze(@hys)
     @country = @@countries[params[:country]]
     @country_code = params[:country]
     render :holidays
