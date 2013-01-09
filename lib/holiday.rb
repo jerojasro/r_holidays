@@ -129,7 +129,7 @@ module Holiday
     end
 
     def weekday
-      @@wdays[@date.wday-1]
+      @@wdays[@date.wday]
     end
 
   end
