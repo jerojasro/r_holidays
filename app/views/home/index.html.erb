@@ -1,3 +1,9 @@
+<h1>Holidays!</h1>
+<p>
+  You can check the dates for the holidays of a country in any given year with
+  the form below. Select the country of your interest (for now just Colombia ;),
+  indicate the year whose holiday dates you want to check, and hit the <strong>See holidays</strong> button.
+</p>
 <form method="GET" action="/holidays">
   <select name="country">
     <% @countries.each do |k,v| %>
@@ -5,5 +11,5 @@
     <% end %>
   </select>
   <input name="year"/><br/>
-  <input type="submit" value="Submit"/>
+  <input type="submit" value="See holidays"/>
 </form>
