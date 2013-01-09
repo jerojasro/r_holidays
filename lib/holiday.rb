@@ -174,6 +174,7 @@ module Holiday
   end
 
   def self.holidays_for(country_code)
+    # TODO validate country code against the table for countries in the home_controller
     hld_path = File.expand_path(File.dirname(__FILE__) + "/hld_data/#{country_code}.hld")
     fail "No holiday file: #{hld_path}" if not File.exists?(hld_path)
     f = File.new(hld_path)
