@@ -13,6 +13,16 @@ class TestEasterDate < Test::Unit::TestCase
     assert_equal(Date.new(2009, 4, 12), Easter.easter_date(2009))
     assert_equal(Date.new(2012, 4, 8), Easter.easter_date(2012))
   end
+
+  def test_assertions
+    assert_raise ArgumentError do
+      Easter.easter_date("bacon")
+    end
+
+    assert_raise ArgumentError do
+      Easter.easter_date(-1)
+    end
+  end
 end
 
 class TestHoliday < Test::Unit::TestCase

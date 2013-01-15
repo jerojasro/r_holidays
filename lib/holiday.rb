@@ -3,6 +3,9 @@ require 'date'
 module Easter
   def self.easter_date(year)
 
+    raise ArgumentError, "year must be a positive integer: #{year}" unless year.is_a? Fixnum
+    raise ArgumentError, "year must be a positive integer: #{year}" unless year >= 0
+
     a     = year % 19
     b     = year / 100
     c     = year % 100
