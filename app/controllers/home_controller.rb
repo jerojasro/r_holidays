@@ -5,7 +5,6 @@ class HomeController < ApplicationController
 
 
   def index
-    # TODO see how to pass class variables to the template
     @countries = Holiday::countries
   end
 
