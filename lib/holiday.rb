@@ -98,6 +98,7 @@ module Holiday
     attr_reader :offset
 
     def initialize(name, offset)
+      raise ArgumentError, "not a valid offset: #{offset}" unless offset.is_a? Fixnum
       @name = name
       @offset = offset
     end

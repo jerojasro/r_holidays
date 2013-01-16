@@ -58,31 +58,37 @@ class TestHoliday < Test::Unit::TestCase
 
   def test_nmhcreation
     assert_raises ArgumentError do
-      Holiday::FixedHoliday.new("Fake Fixed Holiday", "foo", 12)
+      Holiday::FixedHoliday.new("Fake AM Holiday", "foo", 12)
     end
 
     assert_raises ArgumentError do
-      Holiday::FixedHoliday.new("Fake Fixed Holiday", 2, "bar")
+      Holiday::FixedHoliday.new("Fake AM Holiday", 2, "bar")
     end
 
     assert_raises ArgumentError do
-      Holiday::NextMondayHoliday.new("Fake Fixed Holiday", 0, 12)
+      Holiday::NextMondayHoliday.new("Fake AM Holiday", 0, 12)
     end
 
     assert_raises ArgumentError do
-      Holiday::NextMondayHoliday.new("Fake Fixed Holiday", 13, 12)
+      Holiday::NextMondayHoliday.new("Fake AM Holiday", 13, 12)
     end
 
     assert_raises ArgumentError do
-      Holiday::NextMondayHoliday.new("Fake Fixed Holiday", 1, 0)
+      Holiday::NextMondayHoliday.new("Fake AM Holiday", 1, 0)
     end
 
     assert_raises ArgumentError do
-      Holiday::NextMondayHoliday.new("Fake Fixed Holiday", 1, 32)
+      Holiday::NextMondayHoliday.new("Fake AM Holiday", 1, 32)
     end
 
     assert_raises ArgumentError do
-      Holiday::NextMondayHoliday.new("Fake Fixed Holiday", 2, 29)
+      Holiday::NextMondayHoliday.new("Fake AM Holiday", 2, 29)
+    end
+  end
+
+  def test_eohcreation
+    assert_raises ArgumentError do
+      Holiday::FixedHoliday.new("Fake Easter Offset Holiday", "foo")
     end
   end
 
