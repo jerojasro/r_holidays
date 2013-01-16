@@ -40,14 +40,12 @@ module Holiday
 
       raise ArgumentError, "not a valid month: #{month}" unless month.is_a? Fixnum
       raise ArgumentError, "not a valid month day: #{day}" unless day.is_a? Fixnum
-      raise ArgumentError, "month must be between 1 and 12: #{month}" \
-          unless month >= 1 and month <= 12
+      raise ArgumentError, "month must be between 1 and 12: #{month}" unless month >= 1 and month <= 12
 
       # leaps day don't matter when defining this kind of holiday
       days_per_month = {1 => 31, 2 => 28, 3 => 31, 4 => 30, 5 => 31, 6 => 30,
                         7 => 31, 8 => 31, 9  => 30, 10 => 31, 11 => 30, 12 => 31}
-      raise ArgumentError, "month day must be between 1 and #{days_per_month[month]}: #{day}" \
-          unless day >= 1 and day <= days_per_month[month]
+      raise ArgumentError, "month day must be between 1 and #{days_per_month[month]}: #{day}" unless day >= 1 and day <= days_per_month[month]
 
       @name = name
       @month = month
