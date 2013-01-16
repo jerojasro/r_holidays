@@ -132,6 +132,16 @@ class TestHolidaysInPeriod < Test::Unit::TestCase
     @@hs
   end
 
+  def test_args
+    assert_raises ArgumentError do
+      Holiday::holidays_in_period("foo", Date.new, @@hs)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::holidays_in_period(Date.new, "foo", @@hs)
+    end
+  end
+
   def test_holidays_in_period
     assert_equal(Holiday::holidays_in_period(Date.new(2013, 1, 1), Date.new(2013, 12, 31), @@hs).map{|hr| hr.date},
                  [

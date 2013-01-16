@@ -145,6 +145,8 @@ module Holiday
   end
 
   def self.holidays_in_period(ini, end_, hs)
+    raise ArgumentError, "Invalid initial date: #{ini}" unless ini.is_a? Date
+    raise ArgumentError, "Invalid end date: #{end_}" unless end_.is_a? Date
     ini_year = [ini.year, end_.year].min
     end_year = [ini.year, end_.year].max
     hds = []
