@@ -3,11 +3,10 @@ require 'date'
 
 class HomeController < ApplicationController
 
-  @@countries = Hash["co", "Colombia"]
 
   def index
-    # TODO see how to avoid this sillyness
-    @countries = @@countries
+    # TODO see how to pass class variables to the template
+    @countries = Holiday::countries
   end
 
   def hfy(country, year)

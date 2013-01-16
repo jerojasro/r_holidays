@@ -200,6 +200,16 @@ class TestHolidayParsing < Test::Unit::TestCase
   def test_parsing_easteroffset
     assert_equal(Holiday::EasterOffsetHoliday.new("Jueves Santo", -3), Holiday.parse_holiday_spec("EasterOffsetHoliday, Jueves Santo, -3"))
   end
+
+  def test_parse_file
+    assert_equal(TestHolidaysInPeriod::hs, Holiday::holidays_for("co"))
+  end
+
+  def test_check_parseargs
+    assert_raises ArgumentError do
+      Holiday::holidays_for("us")
+    end
+  end
 end
 
 class TestHolidayAnalysis < Test::Unit::TestCase
