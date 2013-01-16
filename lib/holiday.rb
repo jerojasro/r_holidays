@@ -33,13 +33,6 @@ module Holiday
   end
 
   module MDHoliday
-    def ==(other)
-      other.month == self.month and other.day == self.day and other.name == self.name
-    end
-  end
-
-  class FixedHoliday < HolidaySpec
-    include MDHoliday
 
     attr_reader :month, :day
 
@@ -48,6 +41,15 @@ module Holiday
       @month = month
       @day = day
     end
+
+    def ==(other)
+      other.month == self.month and other.day == self.day and other.name == self.name
+    end
+
+  end
+
+  class FixedHoliday < HolidaySpec
+    include MDHoliday
 
     def date(year)
       Date.new(year, @month, @day)
@@ -67,19 +69,12 @@ module Holiday
   class NextMondayHoliday < HolidaySpec
     include MDHoliday
 
-    attr_reader :month, :day
-
-    def initialize(name, month, day)
-      @name = name
-      @month = month
-      @day = day
-    end
-
     def date(year)
       d = Date.new(year, @month, @day)
       d + ((8 - d.wday) % 7)
     end
 
+    # TODO this is duplicated with FixedHoliday; can't put it in MDHoliday because it only adds instance methods
     def self.parse(tokens)
 
       # TODO check for valid month and month day numbers
