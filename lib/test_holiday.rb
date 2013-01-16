@@ -108,7 +108,7 @@ end
 class TestHolidaysInPeriod < Test::Unit::TestCase
   @@hs = [
     Holiday::FixedHoliday.new("Anyo Nuevo", 1, 1),
-    Holiday::FixedHoliday.new("Dia del trabajo", 5, 1),
+    Holiday::FixedHoliday.new("Dia del Trabajo", 5, 1),
     Holiday::FixedHoliday.new("Grito de Independencia", 7, 20),
     Holiday::FixedHoliday.new("Batalla de Boyaca", 8, 7),
     Holiday::FixedHoliday.new("Inmaculada Concepcion", 12, 8),
@@ -210,7 +210,7 @@ class TestHolidayAnalysis < Test::Unit::TestCase
     assert_equal(ar[:on_weekend], [
                  Holiday::Holiday.new(Date.new(2011, 1, 1), "Anyo Nuevo"),
                  Holiday::Holiday.new(Date.new(2011, 4, 17), "Domingo de Ramos"),
-                 Holiday::Holiday.new(Date.new(2011, 5, 1), "Dia del trabajo"),
+                 Holiday::Holiday.new(Date.new(2011, 5, 1), "Dia del Trabajo"),
                  Holiday::Holiday.new(Date.new(2011, 8, 7), "Batalla de Boyaca"),
                  Holiday::Holiday.new(Date.new(2011, 12, 25), "Navidad"),
     ])
@@ -231,7 +231,7 @@ class TestHolidayAnalysis < Test::Unit::TestCase
     hrs_filtered = hrs.dup
     hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 1, 1), "Anyo Nuevo"))
     hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 4, 17), "Domingo de Ramos"))
-    hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 5, 1), "Dia del trabajo"))
+    hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 5, 1), "Dia del Trabajo"))
     hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 8, 7), "Batalla de Boyaca"))
     hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 12, 25), "Navidad"))
     hrs_filtered.delete(Holiday::Holiday.new(Date.new(2011, 7, 4), "San Pedro y San Pablo"))
