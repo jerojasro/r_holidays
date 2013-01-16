@@ -26,6 +26,66 @@ class TestEasterDate < Test::Unit::TestCase
 end
 
 class TestHoliday < Test::Unit::TestCase
+  def test_fhcreation
+    assert_raises ArgumentError do
+      Holiday::FixedHoliday.new("Fake Fixed Holiday", "foo", 12)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::FixedHoliday.new("Fake Fixed Holiday", 2, "bar")
+    end
+
+    assert_raises ArgumentError do
+      Holiday::FixedHoliday.new("Fake Fixed Holiday", 0, 12)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::FixedHoliday.new("Fake Fixed Holiday", 13, 12)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::FixedHoliday.new("Fake Fixed Holiday", 1, 0)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::FixedHoliday.new("Fake Fixed Holiday", 1, 32)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::FixedHoliday.new("Fake Fixed Holiday", 2, 29)
+    end
+  end
+
+  def test_nmhcreation
+    assert_raises ArgumentError do
+      Holiday::FixedHoliday.new("Fake Fixed Holiday", "foo", 12)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::FixedHoliday.new("Fake Fixed Holiday", 2, "bar")
+    end
+
+    assert_raises ArgumentError do
+      Holiday::NextMondayHoliday.new("Fake Fixed Holiday", 0, 12)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::NextMondayHoliday.new("Fake Fixed Holiday", 13, 12)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::NextMondayHoliday.new("Fake Fixed Holiday", 1, 0)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::NextMondayHoliday.new("Fake Fixed Holiday", 1, 32)
+    end
+
+    assert_raises ArgumentError do
+      Holiday::NextMondayHoliday.new("Fake Fixed Holiday", 2, 29)
+    end
+  end
+
   def test_next_monday_holiday
     assert_equal(Date.new(2013, 1, 7), Holiday::NextMondayHoliday.new("Fiesta de Reyes", 1, 6).date(2013))
     assert_equal(Date.new(2013, 7, 1), Holiday::NextMondayHoliday.new("San Pedro y San Pablo", 6, 29).date(2013))

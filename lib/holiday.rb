@@ -37,6 +37,18 @@ module Holiday
     attr_reader :month, :day
 
     def initialize(name, month, day)
+
+      raise ArgumentError, "not a valid month: #{month}" unless month.is_a? Fixnum
+      raise ArgumentError, "not a valid month day: #{day}" unless day.is_a? Fixnum
+      raise ArgumentError, "month must be between 1 and 12: #{month}" \
+          unless month >= 1 and month <= 12
+
+      # leaps day don't matter when defining this kind of holiday
+      days_per_month = {1 => 31, 2 => 28, 3 => 31, 4 => 30, 5 => 31, 6 => 30,
+                        7 => 31, 8 => 31, 9  => 30, 10 => 31, 11 => 30, 12 => 31}
+      raise ArgumentError, "month day must be between 1 and #{days_per_month[month]}: #{day}" \
+          unless day >= 1 and day <= days_per_month[month]
+
       @name = name
       @month = month
       @day = day
@@ -57,8 +69,6 @@ module Holiday
 
     def self.parse(tokens)
 
-      # TODO check for valid month and month day numbers
-
       raise HolidayParseError.new("Incorrect amount of parameters: #{tokens}.  Expecting name, month number and day number") if tokens.size != 3
       name, month_s, day_s = tokens
       self.new(name, month_s.to_i, day_s.to_i)
@@ -74,10 +84,9 @@ module Holiday
       d + ((8 - d.wday) % 7)
     end
 
-    # TODO this is duplicated with FixedHoliday; can't put it in MDHoliday because it only adds instance methods
+    # TODO this is duplicated with FixedHoliday; can't put it in MDHoliday
+    # because including it only adds instance methods
     def self.parse(tokens)
-
-      # TODO check for valid month and month day numbers
 
       raise HolidayParseError.new("Incorrect amount of parameters: #{tokens}.  Expecting name, month number and day number") if tokens.size != 3
       name, month_s, day_s = tokens
