@@ -4,28 +4,9 @@ require 'date'
 
 class HomeController < ApplicationController
 
-  def new
-    @hf = HolidayForm.new
-  end
-
-  def show
-    @countries = Holiday::countries
-  end
-
-  def create
-
-    @hf = HolidayForm.new(params[:holiday_form])
-
-    if @hf.valid?
-      redirect_to @hf, notice: 'Post was successfully created.'
-    else
-      render action: "new"
-    end
-  end
-
-
   def index
     @countries = Holiday::countries
+    @hf = HolidayForm.new
   end
 
   def hfy(country, year)
@@ -36,15 +17,18 @@ class HomeController < ApplicationController
   end
 
   def holidays
-    if not params[:country] or not params[:year]
-      # TODO fail
+    @hf = HolidayForm.new(params[:holiday_form])
+
+    if @hf.valid?
+      @year = @hf.year.to_i
+      @hys = self.hfy("co", @year)
+      @analysis = Holiday.analyze(@hys)
+      @country = Holiday::countries["co"]
+      @country_code = "co"
+      render :holidays
+    else
+      render action: "new"
     end
-    @year = params[:year].to_i
-    @hys = self.hfy(params[:country], @year)
-    @analysis = Holiday.analyze(@hys)
-    @country = @@countries[params[:country]]
-    @country_code = params[:country]
-    render :holidays
   end
 
   def holidays_csv
@@ -55,4 +39,5 @@ class HomeController < ApplicationController
     @hys = self.hfy(params[:country], params[:year].to_i)
     render :content_type => 'text/plain', :layout => false
   end
+
 end

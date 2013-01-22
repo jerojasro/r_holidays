@@ -5,8 +5,6 @@ Holidays::Application.routes.draw do
   match "holidays" => "home#holidays"
   match "csv" => "home#holidays_csv"
 
-  resources :home
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

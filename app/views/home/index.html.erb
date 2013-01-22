@@ -4,12 +4,29 @@
   the form below. Select the country of your interest (for now just Colombia ;),
   indicate the year whose holiday dates you want to check, and hit the <strong>See holidays</strong> button.
 </p>
-<form method="GET" action="/holidays">
-  <select name="country">
-    <% @countries.each do |k,v| %>
-      <option value="<%= k %>"><%= v %></option>
-    <% end %>
-  </select>
-  <input name="year"/><br/>
-  <input type="submit" value="See holidays"/>
+<%= form_for(@hf, :url => "/holidays", :method => "GET") do |f| %>
+  <% if @hf.errors.any? %>
+    <div id="error_explanation">
+      <h2>There were errors with the form. Please fix.</h2>
+
+      <ul>
+      <% @hf.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :country %><br />
+    <%= f.text_field :country %>
+  </div>
+  <div class="field">
+    <%= f.label :year %><br />
+    <%= f.text_field :year %>
+  </div>
+  <div class="actions">
+    <%= f.submit "See holidays" %>
+  </div>
+<% end %>
 </form>
