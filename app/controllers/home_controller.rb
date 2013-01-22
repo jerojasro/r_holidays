@@ -5,7 +5,7 @@ require 'date'
 class HomeController < ApplicationController
 
   def index
-    @countries = Holiday::countries
+    @countries = Holiday::countries.map{|k, v| [v, k]}
     @hf = HolidayForm.new
   end
 
@@ -17,6 +17,7 @@ class HomeController < ApplicationController
   end
 
   def holidays
+    @countries = Holiday::countries.map{|k, v| [v, k]}
     @hf = HolidayForm.new(params[:holiday_form])
 
     if @hf.valid?

@@ -19,7 +19,7 @@
 
   <div class="field">
     <%= f.label :country %><br />
-    <%= f.text_field :country %>
+    <%= select_tag(:country, options_for_select(@countries)) %>
   </div>
   <div class="field">
     <%= f.label :year %><br />
