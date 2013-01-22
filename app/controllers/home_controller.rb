@@ -1,7 +1,16 @@
 require 'holiday'
+require 'holiday_form'
 require 'date'
 
 class HomeController < ApplicationController
+
+  def new
+    @hf = HolidayForm.new
+  end
+
+  def show
+    @countries = Holiday::countries
+  end
 
 
   def index

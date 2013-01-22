@@ -1,0 +1,25 @@
+<%= form_for(@hf, :url => "/") do |f| %>
+  <% if @hf.errors.any? %>
+    <div id="error_explanation">
+      <h2>There were errors with the form. Please fix.</h2>
+
+      <ul>
+      <% @hf.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :country %><br />
+    <%= f.text_field :country %>
+  </div>
+  <div class="field">
+    <%= f.label :year %><br />
+    <%= f.text_field :year %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
