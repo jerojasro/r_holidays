@@ -1,4 +1,10 @@
-<%= form_for(@hf, :url => "/") do |f| %>
+<h1>Holidays!</h1>
+<p>
+  You can check the dates for the holidays of a country in any given year with
+  the form below. Select the country of your interest (for now just Colombia ;),
+  indicate the year whose holiday dates you want to check, and hit the <strong>See holidays</strong> button.
+</p>
+<%= form_for(@hf, :url => "/home") do |f| %>
   <% if @hf.errors.any? %>
     <div id="error_explanation">
       <h2>There were errors with the form. Please fix.</h2>

@@ -12,6 +12,17 @@ class HomeController < ApplicationController
     @countries = Holiday::countries
   end
 
+  def create
+
+    @hf = HolidayForm.new(params[:holiday_form])
+
+    if @hf.valid?
+      redirect_to @hf, notice: 'Post was successfully created.'
+    else
+      render action: "new"
+    end
+  end
+
 
   def index
     @countries = Holiday::countries
