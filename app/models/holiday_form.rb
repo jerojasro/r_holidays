@@ -17,7 +17,4 @@ class HolidayForm
     false
   end
 
-  def new_record?
-    false
-  end
 end
