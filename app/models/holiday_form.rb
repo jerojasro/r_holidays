@@ -5,7 +5,7 @@ class HolidayForm
 
   attr_accessor :country, :year
 
-  validates_presence_of :year
+  validates :year, :numericality => { :only_integer => true }
 
   def initialize(attributes={})
     attributes.each do |k, v|
