@@ -22,10 +22,10 @@ class HomeController < ApplicationController
 
     if @hf.valid?
       @year = @hf.year.to_i
-      @hys = self.hfy("co", @year)
+      @country_code = @hf.country
+      @hys = self.hfy(@country_code, @year)
       @analysis = Holiday.analyze(@hys)
-      @country = Holiday::countries["co"]
-      @country_code = "co"
+      @country = Holiday::countries[@country_code]
       render :holidays
     else
       render action: "index"
