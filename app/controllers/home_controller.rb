@@ -28,7 +28,7 @@ class HomeController < ApplicationController
       @country_code = "co"
       render :holidays
     else
-      render action: "new"
+      render action: "index"
     end
   end
 
