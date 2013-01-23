@@ -1,3 +1,5 @@
+require 'holiday'
+
 class HolidayForm
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -6,6 +8,7 @@ class HolidayForm
   attr_accessor :country, :year
 
   validates :year, :numericality => { :only_integer => true }
+  validates :country, :inclusion => { :in => Holiday.countries.keys, :message => "code invalid" }
 
   def initialize(attributes={})
     attributes.each do |k, v|
